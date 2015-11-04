@@ -1,4 +1,10 @@
-" ---- Author: Vincent
+" =========================================
+" =========================================
+" - Author: Vincent
+" - Email : Vincent.wangworks@gmail.com
+" - GitHun: https://github.com/vincent101/
+" =========================================
+" =========================================
 
 " Encoding related
 set fenc=utf-8
@@ -15,27 +21,13 @@ filetype off                  " required
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 " alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
+" call vundle#begin('~/some/path/here')
 
-" let Vundle manage Vundle, required
 Plugin 'gmarik/Vundle.vim'
-
-" The following are examples of different formats supported.
-" Keep Plugin commands between vundle#begin/end.
-" plugin on GitHub repo
 Plugin 'tpope/vim-fugitive'
-" plugin from http://vim-scripts.org/vim/scripts.html
 Plugin 'L9'
-" Git plugin not hosted on GitHub
 Plugin 'git://git.wincent.com/command-t.git'
-" git repos on your local machine (i.e. when working on your own plugin)
-" Plugin 'file:///home/gmarik/path/to/plugin'
-" The sparkup vim script is in a subdirectory of this repo called vim.
-" Pass the path to set the runtimepath properly.
 Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
-" Avoid a name conflict with L9
-" Plugin 'user/L9', {'name': 'newL9'}
-
 Plugin 'Syntastic'                                                                                           
 Plugin 'winmanager'                                                                                          
 Plugin 'minibufexpl.vim'                                                                                     
@@ -47,6 +39,7 @@ Plugin 'The-NERD-Commenter'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'git://github.com/aperezdc/vim-template.git'
 Plugin 'Vim-R-plugin'
+Plugin 'Auto-Pairs'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -74,21 +67,9 @@ filetype plugin indent on    " required
 " Ctrl + C                   --单源文件编译           [已配置 C Go]
 " Ctrl + R                   --单源文件运行           [已配置 C Go Bash PHP]
 " Ctrl + ]                   --转到函数定义 " Ctrl + T    --返回调用函数
-" Ctrl + E                   --一步加载语法模板和作者、时间信息
-" ESC  + H                   --Normal模式下开启Devhelp查询功能
-"
-" <C-P>                      --单词补全
-" <C-X><C-L>                 --整行补全
-" Tab键                      --插入模式下语法结构补全 [snipMate插件]
-" Shift + Insert             --向Vim中粘贴从别处复制的内容
 "
 " u [小写]                   --单步复原               [非插入模式]
 " U [大写]                   --整行复原               [非插入模式]
-"
-" jj                         --保存文件并留在插入模式 [插入模式]
-" kk                         --返回Normal模式         [插入模式]
-" nt                         --打开NERDTree           [非插入模式]
-" tl                         --打开TagList            [非插入模式]
 "
 " zc                         --折叠当前行
 " zo                         --打开当前折叠
@@ -102,29 +83,17 @@ filetype plugin indent on    " required
 " :%!xxd                     --转储二进制文件，以十六进制形式显示
 " :%!xxd -r                  --还原二进制文件
 
-"  ---------- 主要插件详细用法说明 ---------------------
-"
+" =========================================
+
+"  ------------ Main Plugin ------------
 "  :Tlist                     --呼出变量和函数列表     [TagList插件]
 "  :NerdTree                  --呼出nerdtree文件管理器 [NerdTree插件]
-"  :AuthorInfoDetect          --添加作者、时间等信息   [NERD_commenter && authorinfo插件]
-"
-"  ---------- snipMate [全局可用的补全关键字] ----------
-" 
-"  cprt                       --插入版权信息           [助记：copyright]
-"  date                       --插入当前时间
-"  fiok                       --插入文件的最后修改时间 [助记：file ok]
-"  desc                       --插入文件描述           [助记：description]
-"  更多关键字可自行查看vimfiles/snippets下的各个文件
-"  [Linux下为~/.vim/snippets]
-"
-"  ---------- a.vim [自动切换C/C++同名头文件] ----------
-" 
+"  :MiniBufExplorer           --Open MiniBufExplorer
+"  ------------ a.vim ------------------
 "  :A                         --切换同名头文件并独占整个屏幕
 "  :AS                        --切换同名头文件并垂直分屏，头文件在上
 "  :AV                        --切换同名头文件并水平分割，头文件在左
-"
-"  ---------- NERDTree [智能文件浏览器] ----------------
-"
+"  ------------ NERDTree ---------------
 "  :NERDTree                  --启动NERDTree插件
 "  o [小写]                   --切换当前文件或目录的打开、关闭状态
 "  u                          --打开上层目录
@@ -135,7 +104,13 @@ filetype plugin indent on    " required
 "  m                          --显示文件系统菜单       [增、删、移]
 "  ?                          --弹出帮助菜单
 "  q                          --退出该插件
+"  ------------ MiniBufExplorer -------
+" :MiniBufExplorer           -- Open and/or goto Explorer
+" :CMiniBufExplorer          -- Close the Explorer if it's open
+" :UMiniBufExplorer          -- Update Explorer without naviting
+" :TMiniBufExplorer          -- Toggle the Explorer window open and closed
 
+" =========================================
 
 colorscheme elflord          " 着色模式：黄色和粉红色为主
 set guifont=Monaco:h11       " 字体 && 字号
@@ -175,54 +150,37 @@ filetype indent on           " 针对不同的文件类型采用不同的缩进�
 filetype plugin on           " 针对不同的文件类型加载对应的插件
 filetype plugin indent on    " 启用自动补全
 
+" =========================================
+
 " 每行超过80个的字符用下划线标示
 au BufRead,BufNewFile *.s,*.c,*.h,*.go,*.cl,*.php,*.tpl,*.js,*.css,*.html,*.sql,*.sh,*.vim 2match Underlined /.\%81v/
+" Ctrl + H            将光标移到当前行的行首
+imap <c-h> <ESC>I
+" Ctrl + J            将光标移到下1行的行首
+imap <c-j> <ESC>jI
+" Ctrl + K            将光标移到上1行的末尾
+imap <c-k> <ESC>kA
+" Ctrl + L            将光标移到当前行的行尾
+imap <c-l> <ESC>A
 
-"  ———引号 && 括号自动匹配 ======= "
-
-:inoremap ( ()<ESC>i
-:inoremap ) <c-r>=ClosePair(')')<CR>
-:inoremap { {}<ESC>i
-:inoremap } <c-r>=ClosePair('}')<CR>
-:inoremap [ []<ESC>i
-:inoremap ] <c-r>=ClosePair(']')<CR>
-:inoremap " ""<ESC>i
-:inoremap ' ''<ESC>i
-" :inoremap ` ``<ESC>i
-" :inoremap < <><ESC>i
-function ClosePair(char)
-    if getline('.')[col('.') - 1] == a:char
-       return "\<Right>"
-    else
-       return a:char
-    endif
-endf
-
-" ESC + H             Normal模式下开启Devhelp查询功能
-function! DevHelpCurrentWord()
-        let word = expand("<cword>")
-        exe "!devhelp -s " . word . " &"
-endfunction
-nmap <esc>h :call DevHelpCurrentWord()<CR>
-
-" winManager          窗口管理器
+" WinManager          
 let g:AutoOpenWinManager = 0
 let g:winManagerWindowLayout = "FileExplorer|TagList,BufExplorer"
 let g:winManagerWidth = 30
 
-" MiniBufExplorer     多个文件切换 可使用鼠标双击相应文件名进行切换
+" MiniBufExplorer     
 let g:miniBufExplMapWindowNavVim=1
 let g:miniBufExplMapWindowNavArrows=1
 let g:miniBufExplMapCTabSwitchBufs=1
 let g:miniBufExplModSelTarget=1
 
-" :Tlist              调用TagList
-let Tlist_Ctags_Cmd='/usr/local/bin/ctags'   " 指定Exuberantctags程序的位置
-let Tlist_Auto_Open=0                        " 启动VIM自动打开taglist窗口
-let Tlist_Show_One_File=1                    " 只显示当前文件的tags
-let Tlist_Exit_OnlyWindow=1                  " 如果Taglist窗口是最后一个窗口则退出Vim
-let Tlist_Use_Right_Window=1                 " 在右侧窗口中显示
-let Tlist_File_Fold_Auto_Close=1             " 自动折叠
+" Taglist                                   
+let Tlist_Ctags_Cmd='/usr/local/bin/ctags'   
+let Tlist_Auto_Open=0                        
+let Tlist_Show_One_File=1                    
+let Tlist_Exit_OnlyWindow=1                  
+let Tlist_Use_Right_Window=1                 
+let Tlist_File_Fold_Auto_Close=1             
 
 " UltiSnips
 let g:UltiSnipsExpandTrigger="<Tab>"
@@ -230,71 +188,35 @@ let g:UltiSnipsJumpForwardTrigger="<Tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-Tab>"
 let g:UltiSnipsEditSplit="vertical"
 
-" YoucompleteMe       自动补全
+" YoucompleteMe      
 let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/cpp/ycm/.ycm_extra_conf.py'
 let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
 let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
-" let g:ycm_confirm_extra_conf=0 
-" let g:ycm_collect_identifiers_from_tag_files = 1
-let g:ycm_filetype_blacklist = {
-      \ 'tagbar' : 1,
-      \ 'qf' : 1,
-      \ 'notes' : 1,
-      \ 'markdown' : 1,
-      \ 'unite' : 1,
-      \ 'text' : 1,
-      \ 'vimwiki' : 1,
-      \ 'gitcommit' : 1,
-      \}
+let g:ycm_seed_identifiers_with_syntax=1
 
-" nerdcommenter
+" Nerdcommenter
 let mapleader=","
 
 " R-vim-plugin
 let vimrplugin_applescript = 0
 let vimrplugin_screenplugin = 0
 
-" colours in tmux
+" Colours in tmux
 if exists('$TMUX')
   set term=screen-256color
 endif
 
-" :AuthorInfoDetect   自动添加作者、时间等信息，本质是NERD_commenter && authorinfo的结合
-let g:vimrc_author='Vincent'
-let g:vimrc_email='vincent.wangworks@gmail.com'
-let g:vimrc_homepage=''
+" Automatically set/unset paste mode
+let &t_SI .= "\<Esc>[?2004h"
+let &t_EI .= "\<Esc>[?2004l"
+inoremap <special> <expr> <Esc>[200~ XTermPasteBegin()
+function! XTermPasteBegin()
+  set pastetoggle=<Esc>[201~
+  set paste
+  return ""
+endfunction
 
-" Ctrl + H            将光标移到当前行的行首
-imap <c-h> <ESC>I
-
-" Ctrl + J            将光标移到下一行的行首
-imap <c-j> <ESC>jI
-
-" Ctrl + K            将光标移到上一行的末尾
-imap <c-k> <ESC>kA
-
-" Ctrl + L            将光标移到当前行的行尾
-imap <c-l> <ESC>A
-
-" Ctrl + E            一步加载语法模板和作者、时间信息
-map <c-e> <ESC>:LoadTemplate<CR><ESC>:AuthorInfoDetect<CR><ESC>Gi
-imap <c-e> <ESC>:LoadTemplate<CR><ESC>:AuthorInfoDetect<CR><ESC>Gi
-vmap <c-e> <ESC>:LoadTemplate<CR><ESC>:AuthorInfoDetect<CR><ESC>Gi
-
-" jj                  保存当前文件并留在插入模式      [插入模式]
-imap jj <ESC>:w<CR>li
-
-" kk                  返回Normal模式，不执行保存      [插入模式]
-imap kk <ESC>l
-
-" nt                  打开NERDTree窗口，在左侧栏显示  [非插入模式]
-map nt :NERDTree<CR>
-
-" tl                  打开Taglist窗口，在右侧栏显示   [非插入模式]
-map tl :Tlist<CR><c-l>
-
-
-" ======= 编译 && 运行 ======= "
+" =========================================
 
 " 编译源文件
 func! CompileCode()
@@ -334,30 +256,7 @@ imap <c-c> <ESC>:call CompileCode()<CR>
 vmap <c-c> <ESC>:call CompileCode()<CR>
 
 " Ctrl + R 一键保存、运行
-"" map <c-r> :call RunCode()<CR>
-"" imap <c-r> <ESC>:call RunCode()<CR>
-"" vmap <c-r> <ESC>:call RunCode()<CR>
-
-
-" ======= VimWiki ======= "
-" 设置编码
-let g:vimwiki_w32_dir_enc = 'utf-8'
-
-" 使用鼠标映射
-let g:vimwiki_use_mouse = 1
-
-" 不要将驼峰式词组作为 Wiki 词条
-let g:vimwiki_camel_case = 0
-
-" 声明可以在wiki里面使用的HTML标签
-let g:vimwiki_valid_html_tags='b,i,s,u,sub,sup,kbd,br,hr,div,del,code,red,center,left,right,h2,h4,h5,h6,pre,script,style'
-
-"let g:vimwiki_list = [{
-\ 'path': '~/.vim/mysite/wiki',
-\ 'path_html': '~/.vim/mysite/html/',
-\ 'html_header': '~/.vim/mysite/template/header.html',
-\ 'html_footer': '~/.vim/mysite/template/footer.html',
-\ 'auto_export': 1,
-\ 'nested_syntaxes': {'Clang': 'c', 'Go': 'go', 'Lisp': 'lisp', 'PHP': 'php', 'JS': 'javascript', 'CSS': 'css', 'HTML': 'html', 'XML': 'xml', 'SQL': 'sql', 'Bash': 'sh', 'Vim': 'vim', 'Make': 'make', 'CMake': 'cmake'},}]
-
+" map <c-r> :call RunCode()<CR>
+" imap <c-r> <ESC>:call RunCode()<CR>
+" vmap <c-r> <ESC>:call RunCode()<CR>
 
