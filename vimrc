@@ -33,13 +33,16 @@ Plugin 'winmanager'
 Plugin 'minibufexpl.vim'                                                                                     
 Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
+Plugin 'Auto-Pairs'
 Plugin 'taglist.vim'                                                                                         
 Plugin 'The-NERD-tree'                                                                                       
 Plugin 'The-NERD-Commenter'
 Plugin 'Valloric/YouCompleteMe'
-Plugin 'git://github.com/aperezdc/vim-template.git'
+Plugin 'aperezdc/vim-template.git'
 Plugin 'Vim-R-plugin'
-Plugin 'Auto-Pairs'
+Plugin 'godlygeek/tabular'
+Plugin 'plasticboy/vim-markdown'
+Plugin 'instant-markdown.vim'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -85,30 +88,42 @@ filetype plugin indent on    " required
 
 " =========================================
 
-"  ------------ Main Plugin ------------
-"  :Tlist                     --呼出变量和函数列表     [TagList插件]
-"  :NerdTree                  --呼出nerdtree文件管理器 [NerdTree插件]
-"  :MiniBufExplorer           --Open MiniBufExplorer
-"  ------------ a.vim ------------------
-"  :A                         --切换同名头文件并独占整个屏幕
-"  :AS                        --切换同名头文件并垂直分屏，头文件在上
-"  :AV                        --切换同名头文件并水平分割，头文件在左
-"  ------------ NERDTree ---------------
-"  :NERDTree                  --启动NERDTree插件
-"  o [小写]                   --切换当前文件或目录的打开、关闭状态
-"  u                          --打开上层目录
-"  p [小写]                   --返回上层目录
-"  P [大写]                   --返回根目录
-"  K                          --转到当前目录第一个节点
-"  J                          --转到当前目录最后的节点
-"  m                          --显示文件系统菜单       [增、删、移]
-"  ?                          --弹出帮助菜单
-"  q                          --退出该插件
-"  ------------ MiniBufExplorer -------
+" ------------- Main Plugin ---------------
+" :Tlist                     --呼出变量和函数列表     [TagList插件]
+" :NerdTree                  --呼出nerdtree文件管理器 [NerdTree插件]
+" :MiniBufExplorer           --Open MiniBufExplorer
+" ------------- a.vim ---------------------
+" :A                         --切换同名头文件并独占整个屏幕
+" :AS                        --切换同名头文件并垂直分屏，头文件在上
+" :AV                        --切换同名头文件并水平分割，头文件在左
+" --=---------- NERDTree ------------------
+" :NERDTree                  --启动NERDTree插件
+" o [小写]                   --切换当前文件或目录的打开、关闭状态
+" u                          --打开上层目录
+" p [小写]                   --返回上层目录
+" P [大写]                   --返回根目录
+" K                          --转到当前目录第一个节点
+" J                          --转到当前目录最后的节点
+" m                          --显示文件系统菜单       [增、删、移]
+" ?                          --弹出帮助菜单
+" q                          --退出该插件
+" ------------- MiniBufExplorer -----------
 " :MiniBufExplorer           -- Open and/or goto Explorer
 " :CMiniBufExplorer          -- Close the Explorer if it's open
 " :UMiniBufExplorer          -- Update Explorer without naviting
 " :TMiniBufExplorer          -- Toggle the Explorer window open and closed
+" ------------- Tabular -------------------
+" :Tab /?                    -- Aligning text by ?
+" ------------- Vim-Markdown --------------
+" gx                         -- open the link under the cursor in the same browser as the standard gx command.
+" ]]                         -- go to next header.
+" [[                         -- go to previous header.
+" ][                         -- go to next sibling header if any.
+" []                         -- go to previous sibling header if any.
+" ]c                         -- go to Current header.
+" ]u                         -- go to parent header (Up).
+" ------------- Instant-Markdown ----------
+" :InstantMarkdownPreview    -- launch the preview window
 
 " =========================================
 
@@ -154,14 +169,10 @@ filetype plugin indent on    " 启用自动补全
 
 " 每行超过80个的字符用下划线标示
 au BufRead,BufNewFile *.s,*.c,*.h,*.go,*.cl,*.php,*.tpl,*.js,*.css,*.html,*.sql,*.sh,*.vim 2match Underlined /.\%81v/
-" Ctrl + H            将光标移到当前行的行首
-imap <c-h> <ESC>I
-" Ctrl + J            将光标移到下1行的行首
-imap <c-j> <ESC>jI
-" Ctrl + K            将光标移到上1行的末尾
-imap <c-k> <ESC>kA
-" Ctrl + L            将光标移到当前行的行尾
-imap <c-l> <ESC>A
+imap <c-h> <ESC>I            " 将光标移到当前行的行首
+imap <c-j> <ESC>jI           " 将光标移到下1行的行首
+imap <c-k> <ESC>kA           " 将光标移到上1行的末尾
+imap <c-l> <ESC>A            " 将光标移到当前行的行尾
 
 " WinManager          
 let g:AutoOpenWinManager = 0
@@ -200,6 +211,14 @@ let mapleader=","
 " R-vim-plugin
 let vimrplugin_applescript = 0
 let vimrplugin_screenplugin = 0
+
+" Vim-Markdown
+let g:vim_markdown_frontmatter=1
+autocmd BufNewFile,BufReadPost *.md set filetype=markdown
+
+" Instant-Markdown
+let g:instant_markdown_slow = 1
+let g:instant_markdown_autostart = 0
 
 " Colours in tmux
 if exists('$TMUX')
