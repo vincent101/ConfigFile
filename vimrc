@@ -26,23 +26,26 @@ call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
 Plugin 'tpope/vim-fugitive'
 Plugin 'L9'
-Plugin 'git://git.wincent.com/command-t.git'
 Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
 Plugin 'Syntastic'                                                                                           
 Plugin 'winmanager'                                                                                          
-Plugin 'minibufexpl.vim'                                                                                     
+Plugin 'minibufexpl.vim'
+Plugin 'majutsushi/tagbar'                                                                                         
 Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
-Plugin 'Auto-Pairs'
-Plugin 'taglist.vim'                                                                                         
-Plugin 'The-NERD-tree'                                                                                       
-Plugin 'The-NERD-Commenter'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'aperezdc/vim-template.git'
-Plugin 'Vim-R-plugin'
+Plugin 'The-NERD-tree'                                                                                       
+Plugin 'The-NERD-Commenter'
+Plugin 'kien/ctrlp.vim'
 Plugin 'godlygeek/tabular'
+Plugin 'Auto-Pairs'
+Plugin 'bling/vim-airline'
+Plugin 'lazywei/vim-matlab'
+Plugin 'Vim-R-plugin'
 Plugin 'plasticboy/vim-markdown'
 Plugin 'instant-markdown.vim'
+Plugin 'tomasr/molokai'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -89,14 +92,23 @@ filetype plugin indent on    " required
 " =========================================
 
 " ------------- Main Plugin ---------------
-" :Tlist                     --呼出变量和函数列表     [TagList插件]
-" :NerdTree                  --呼出nerdtree文件管理器 [NerdTree插件]
 " :MiniBufExplorer           --Open MiniBufExplorer
+" :Tagbar                    --呼出变量和函数列表     [Tagbar插件]
+" :NerdTree                  --呼出nerdtree文件管理器 [NerdTree插件]
+" :CtrlP or <c-p>            -- invoke CtrlP in find file mode
+" :Tabularize                -- Aligning text by ?
 " ------------- a.vim ---------------------
 " :A                         --切换同名头文件并独占整个屏幕
 " :AS                        --切换同名头文件并垂直分屏，头文件在上
 " :AV                        --切换同名头文件并水平分割，头文件在左
-" --=---------- NERDTree ------------------
+" ------------- MiniBufExplorer -----------
+" :MiniBufExplorer           -- Open and/or goto Explorer
+" :CMiniBufExplorer          -- Close the Explorer if it's open
+" :UMiniBufExplorer          -- Update Explorer without naviting
+" :TMiniBufExplorer          -- Toggle the Explorer window open and closed
+" ------------- Tagbar --------------------
+" :Tagbar                    --呼出变量和函数列表     [Tagbar插件]
+" ------------- NERDTree ------------------
 " :NERDTree                  --启动NERDTree插件
 " o [小写]                   --切换当前文件或目录的打开、关闭状态
 " u                          --打开上层目录
@@ -107,11 +119,20 @@ filetype plugin indent on    " required
 " m                          --显示文件系统菜单       [增、删、移]
 " ?                          --弹出帮助菜单
 " q                          --退出该插件
-" ------------- MiniBufExplorer -----------
-" :MiniBufExplorer           -- Open and/or goto Explorer
-" :CMiniBufExplorer          -- Close the Explorer if it's open
-" :UMiniBufExplorer          -- Update Explorer without naviting
-" :TMiniBufExplorer          -- Toggle the Explorer window open and closed
+" ------------- CtrlP ---------------------
+" :CtrlP or <c-p>            -- invoke CtrlP in find file mode
+" :CtrlPBuffer or :CtrlPMRU  -- invoke CtrlP in find buffer or find MRU file mode.
+" :CtrlPMixed                -- search in Files, Buffers and MRU files at the same time.
+" After CtrlP is open
+" <F5>                       -- purge the cache for the current directory to get new files, remove deleted files and apply new ignore options.
+" <c-f> and <c-b>            -- cycle between modes.
+" <c-d>                      -- switch to filename only search instead of full path.
+" <c-r>                      -- switch to regexp mode.
+" <c-j>, <c-k>               -- navigate the result list.
+" <c-t> or <c-v>, <c-x>      -- open the selected entry in a new tab or in a new split.
+" <c-n>, <c-p>               -- select the next/previous string in the prompt's history.
+" <c-y>                      -- create a new file and its parent directories.
+" <c-z>                      -- mark/unmark multiple files and <c-o> to open them.
 " ------------- Tabular -------------------
 " :Tab /?                    -- Aligning text by ?
 " ------------- Vim-Markdown --------------
@@ -127,7 +148,8 @@ filetype plugin indent on    " required
 
 " =========================================
 
-colorscheme elflord          " 着色模式：黄色和粉红色为主
+"colorscheme elflord          " 着色模式：黄色和粉红色为主
+colorscheme molokai          " Color Scheme use Molokai
 set guifont=Monaco:h11       " 字体 && 字号
 set backspace=2              " 设置退格键可用
 set autoindent               " 自动对齐
@@ -169,10 +191,11 @@ filetype plugin indent on    " 启用自动补全
 
 " 每行超过80个的字符用下划线标示
 au BufRead,BufNewFile *.s,*.c,*.h,*.go,*.cl,*.php,*.tpl,*.js,*.css,*.html,*.sql,*.sh,*.vim 2match Underlined /.\%81v/
-imap <c-h> <ESC>I            " 将光标移到当前行的行首
-imap <c-j> <ESC>jI           " 将光标移到下1行的行首
-imap <c-k> <ESC>kA           " 将光标移到上1行的末尾
-imap <c-l> <ESC>A            " 将光标移到当前行的行尾
+" 在INSERT模式下移动光标
+imap <c-h> <ESC>I            
+imap <c-j> <ESC>jI           
+imap <c-k> <ESC>kA           
+imap <c-l> <ESC>A            
 
 " WinManager          
 let g:AutoOpenWinManager = 0
@@ -185,14 +208,9 @@ let g:miniBufExplMapWindowNavArrows=1
 let g:miniBufExplMapCTabSwitchBufs=1
 let g:miniBufExplModSelTarget=1
 
-" Taglist                                   
-let Tlist_Ctags_Cmd='/usr/local/bin/ctags'   
-let Tlist_Auto_Open=0                        
-let Tlist_Show_One_File=1                    
-let Tlist_Exit_OnlyWindow=1                  
-let Tlist_Use_Right_Window=1                 
-let Tlist_File_Fold_Auto_Close=1             
-
+" Tagbar
+let g:tagbar_ctags_bin = '/usr/local/bin/ctags'
+           
 " UltiSnips
 let g:UltiSnipsExpandTrigger="<Tab>"
 let g:UltiSnipsJumpForwardTrigger="<Tab>"
@@ -208,22 +226,31 @@ let g:ycm_seed_identifiers_with_syntax=1
 " Nerdcommenter
 let mapleader=","
 
+" CtrlP
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlP'
+let g:ctrlp_working_path_mode = 'ra'
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip 
+let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+
+" Airline
+"let g:airline#extensions#tabline#enabled = 1
+
 " R-vim-plugin
 let vimrplugin_applescript = 0
 let vimrplugin_screenplugin = 0
 
 " Vim-Markdown
 let g:vim_markdown_frontmatter=1
-autocmd BufNewFile,BufReadPost *.md set filetype=markdown
 
 " Instant-Markdown
 let g:instant_markdown_slow = 1
 let g:instant_markdown_autostart = 0
 
-" Colours in tmux
-if exists('$TMUX')
-  set term=screen-256color
-endif
+" Molokai Color Scheme
+"set background=dark
+let g:molokai_original = 1
+let g:rehash256 = 1
 
 " Automatically set/unset paste mode
 let &t_SI .= "\<Esc>[?2004h"
