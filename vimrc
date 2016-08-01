@@ -30,6 +30,7 @@ Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
 Plugin 'Syntastic'                                                                                           
 Plugin 'winmanager'                                                                                          
 Plugin 'minibufexpl.vim'
+Plugin 'taglist.vim'
 Plugin 'majutsushi/tagbar'                                                                                         
 Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
@@ -41,10 +42,9 @@ Plugin 'kien/ctrlp.vim'
 Plugin 'godlygeek/tabular'
 Plugin 'Auto-Pairs'
 Plugin 'bling/vim-airline'
-Plugin 'lazywei/vim-matlab'
+Plugin 'MatlabFilesEdition' 
 Plugin 'Vim-R-plugin'
 Plugin 'plasticboy/vim-markdown'
-Plugin 'instant-markdown.vim'
 Plugin 'tomasr/molokai'
 
 " All of your Plugins must be added before the following line
@@ -70,8 +70,8 @@ filetype plugin indent on    " required
 " Ctrl + J                   --光标移下一行行首       [插入模式]
 " Ctrl + K                   --光标移上一行行尾       [插入模式]
 " Ctrl + L                   --光标移当前行行尾       [插入模式]
-" Ctrl + C                   --单源文件编译           [已配置 C Go]
-" Ctrl + R                   --单源文件运行           [已配置 C Go Bash PHP]
+" Ctrl + C                   --单源文件编译           [已配置 c,cpp,go]
+" Ctrl + R                   --单源文件运行           [已配置 c,cpp,,Go,Bash,PHP,python]
 " Ctrl + ]                   --转到函数定义 " Ctrl + T    --返回调用函数
 "
 " u [小写]                   --单步复原               [非插入模式]
@@ -97,15 +97,15 @@ filetype plugin indent on    " required
 " :NerdTree                  --呼出nerdtree文件管理器 [NerdTree插件]
 " :CtrlP or <c-p>            -- invoke CtrlP in find file mode
 " :Tabularize                -- Aligning text by ?
-" ------------- a.vim ---------------------
-" :A                         --切换同名头文件并独占整个屏幕
-" :AS                        --切换同名头文件并垂直分屏，头文件在上
-" :AV                        --切换同名头文件并水平分割，头文件在左
 " ------------- MiniBufExplorer -----------
 " :MiniBufExplorer           -- Open and/or goto Explorer
 " :CMiniBufExplorer          -- Close the Explorer if it's open
 " :UMiniBufExplorer          -- Update Explorer without naviting
 " :TMiniBufExplorer          -- Toggle the Explorer window open and closed
+" ------------ WinManager ------------------
+" :wm                        -- Open NERDTree and TagList on the left side
+" ------------- Taglist --------------------
+" :Tlist                     -- Open taglist
 " ------------- Tagbar --------------------
 " :Tagbar                    --呼出变量和函数列表     [Tagbar插件]
 " ------------- NERDTree ------------------
@@ -199,8 +199,18 @@ imap <c-l> <ESC>A
 
 " WinManager          
 let g:AutoOpenWinManager = 0
-let g:winManagerWindowLayout = "FileExplorer|TagList,BufExplorer"
 let g:winManagerWidth = 30
+let g:winManagerWindowLayout="NERDTree|TagList,BufExplorer"
+nmap wm :if IsWinManagerVisible() <BAR> WMToggle<CR> <BAR> else <BAR> WMToggle<CR>:q<CR> endif <CR><CR>
+"Add NERDTree and TagList to Winmanager
+let g:NERDTree_title="[NERDTree]" 
+function! NERDTree_Start()
+    exec 'NERDTree'
+endfunction
+function! NERDTree_IsValid()
+    return 1
+endfunction
+"end
 
 " MiniBufExplorer     
 let g:miniBufExplMapWindowNavVim=1
@@ -210,6 +220,13 @@ let g:miniBufExplModSelTarget=1
 
 " Tagbar
 let g:tagbar_ctags_bin = '/usr/local/bin/ctags'
+
+" TagList
+let Tlist_Ctags_Cmd = '/usr/local/bin/ctags'
+let Tlist_Show_One_File=1
+let Tlist_Exit_OnlyWindow=1
+let Tlist_File_Fold_Auto_Close=1
+let Tlist_Use_Right_Window=1
            
 " UltiSnips
 let g:UltiSnipsExpandTrigger="<Tab>"
@@ -225,6 +242,10 @@ let g:ycm_seed_identifiers_with_syntax=1
 
 " Nerdcommenter
 let mapleader=","
+
+" vim-template
+let g:username = 'Vincent'
+let g:email = 'vincent.wangworks@gmail.com'
 
 " CtrlP
 let g:ctrlp_map = '<c-p>'
@@ -273,10 +294,6 @@ func! CompileCode()
             exec "!g++ %<.cpp -o %<"
         elseif &filetype == "go"
             exec "!gccgo -Wall %<.go -o %<"
-        elseif &filetype == "sh"
-            exec "!bash %<.sh"
-        elseif &filetype == "php"
-            exec "!php %<.php"
         elseif &filetype == "make"
             exec "!colormake"
         endif
@@ -289,6 +306,8 @@ func! RunCode()
             exec "! ./%<"
         elseif &filetype == "sh"
             exec "!bash %<.sh"
+        elseif &filetype == "python"
+            exec "!python %<.py"
         elseif &filetype == "php"
             exec "!php %<.php"
         elseif &filetype == "make"
@@ -302,7 +321,7 @@ imap <c-c> <ESC>:call CompileCode()<CR>
 vmap <c-c> <ESC>:call CompileCode()<CR>
 
 " Ctrl + R 一键保存、运行
-" map <c-r> :call RunCode()<CR>
-" imap <c-r> <ESC>:call RunCode()<CR>
-" vmap <c-r> <ESC>:call RunCode()<CR>
+map <c-x> :call RunCode()<CR>
+imap <c-x> <ESC>:call RunCode()<CR>
+vmap <c-x> <ESC>:call RunCode()<CR>
 
