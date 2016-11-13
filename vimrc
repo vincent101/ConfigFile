@@ -43,7 +43,7 @@ Plugin 'godlygeek/tabular'
 Plugin 'Auto-Pairs'
 Plugin 'bling/vim-airline'
 Plugin 'MatlabFilesEdition' 
-Plugin 'Vim-R-plugin'
+Plugin 'jcfaria/Vim-R-plugin'
 Plugin 'plasticboy/vim-markdown'
 Plugin 'tomasr/molokai'
 
@@ -259,7 +259,8 @@ let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 
 " R-vim-plugin
 let vimrplugin_applescript = 0
-let vimrplugin_screenplugin = 0
+"let vimrplugin_screenplugin = 0
+let vimrplugin_vimcom_wait = 10000
 
 " Vim-Markdown
 let g:vim_markdown_frontmatter=1
