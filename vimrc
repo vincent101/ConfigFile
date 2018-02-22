@@ -46,6 +46,7 @@ Plugin 'MatlabFilesEdition'
 Plugin 'jcfaria/Vim-R-plugin'
 Plugin 'plasticboy/vim-markdown'
 Plugin 'tomasr/molokai'
+Plugin 'jpalardy/vim-slime'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -269,6 +270,15 @@ let g:airline#extensions#tabline#enabled = 1
 let vimrplugin_applescript = 0
 let vimrplugin_vimcom_wait = 10000
 "let vimrplugin_screenplugin = 0
+
+" vim-slime, 从tmux:pane:1的vim，发送内容至，pane:2的ipython或其它,
+" send by <F8>, setup by <F9>>
+let g:slime_target = "tmux"
+let g:slime_default_config = {"socket_name": "default", "target_pane": "2"}
+let g:slime_dont_ask_default = 1
+xmap <F8> <Plug>SlimeRegionSend
+nmap <F8> <Plug>SlimeParagraphSend
+nmap <F9> <Plug>SlimeConfig
 
 " Vim-Markdown
 let g:vim_markdown_frontmatter=1
