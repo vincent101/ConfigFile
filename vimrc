@@ -172,7 +172,7 @@ set smartindent              " 智能自动缩进
 set shiftwidth=4             " 换行时行间交错使用4空格
 set cindent shiftwidth=4     " 自动缩进4空格
 set nu!                      " 显示行号
-set mouse=a                  " 启用鼠标
+set mouse=vich               " 启用鼠标 no normal
 set ruler                    " 右下角显示光标位置的状态行
 set incsearch                " 开启实时搜索功能
 set hlsearch                 " 开启高亮显示结果
@@ -238,7 +238,7 @@ let g:UltiSnipsJumpBackwardTrigger="<s-Tab>"
 let g:UltiSnipsEditSplit="vertical"
 
 " YoucompleteMe      
-let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/cpp/ycm/.ycm_extra_conf.py'
+"let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/cpp/ycm/.ycm_extra_conf.py'
 let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
 let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
 let g:ycm_seed_identifiers_with_syntax=1

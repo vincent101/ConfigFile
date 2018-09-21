@@ -1,3 +1,25 @@
+# Author: Vincent
+# Email:  Vincent.wangworks@gmail.com
+# GitHub: https://github.com/vincent101/
+
+########### Basic Usage ###########
+#
+# terminal >> tn        -- start new tmux Session "mySession"
+# terminal >> tm        -- load tmux Session "mySession"
+# ` s                   -- list Session
+# ` c                   -- new window
+# ` w                   -- list Window
+# ` &                   -- kill Window
+# ` |                   -- split Pane vertically
+# ` -                   -- split Pane horizontally
+# ` Space               -- swap Panes
+# ` HJKL                -- resize Pane
+# ` z                   -- zoom Pane
+# ` x                   -- kill Pane
+# ` [                   -- Copy mode
+
+########### Basic Setting #########
+#
 # Setting the prefix from C-b to C-a
 set -g prefix `
 # Free the original Ctrl-b prefix keybinding
@@ -35,7 +57,7 @@ bind -r K resize-pane -U 5
 bind -r L resize-pane -R 5
 
 # mouse support - set to on if you want to use the mouse
-setw -g mouse on
+# setw -g mouse on
 # set -g mouse-select-pane off
 # set -g mouse-resize-pane off
 # set -g mouse-select-window off
@@ -87,11 +109,7 @@ set -g status-justify centre
 setw -g mode-keys vi
 # copy mode
 bind P paste-buffer
-#bind-key -t vi-copy 'v' begin-selection
-#bind-key -t vi-copy 'y' copy-selection
-#bind-key -t vi-copy 'r' rectangle-toggle
-#bind -t vi-copy y copy-pipe "xclip -sel clip -i"
-bind-key -T copy-mode-vi v send-keys -X begin-selection
-bind-key -T copy-mode-vi y send-keys -X copy-selection
-bind-key -T copy-mode-vi r send-keys -X rectangle-toggle
-bind -T copy-mode-vi y send-keys -X copy-pipe-and-cancel "xclip -sel clip -i"
+bind-key -t vi-copy 'v' begin-selection
+bind-key -t vi-copy 'y' copy-selection
+bind-key -t vi-copy 'r' rectangle-toggle
+bind -t vi-copy y copy-pipe "xclip -sel clip -i"
