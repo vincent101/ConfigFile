@@ -4,26 +4,26 @@
 
 ########### Basic Usage ###########
 #
-# terminal >> tn        -- start new tmux Session "mySession"
-# terminal >> tm        -- load tmux Session "mySession"
-# ` s                   -- list Session
-# ` c                   -- new window
-# ` w                   -- list Window
-# ` &                   -- kill Window
-# ` |                   -- split Pane vertically
-# ` -                   -- split Pane horizontally
-# ` Space               -- swap Panes
-# ` HJKL                -- resize Pane
-# ` z                   -- zoom Pane
-# ` x                   -- kill Pane
-# ` [                   -- Copy mode
+# terminal >> tmuxCreateMySession   -- start new tmux Session "mySession"
+# terminal >> tmuxAttachMySession   -- load tmux Session "mySession"
+# ` s                               -- list Session
+# ` c                               -- new window
+# ` w                               -- list Window
+# ` &                               -- kill Window
+# ` |                               -- split Pane vertically
+# ` -                               -- split Pane horizontally
+# ` Space                           -- swap Panes
+# ` HJKL                            -- resize Pane
+# ` z                               -- zoom Pane
+# ` x                               -- kill Pane
+# ` [                               -- Copy mode
 
 ########### Basic Setting #########
 #
-# Setting the prefix from C-b to C-a
-set -g prefix `
 # Free the original Ctrl-b prefix keybinding
 unbind C-b 
+# Setting the prefix from C-b to C-a
+set -g prefix `
 # Setting the delay between prefix and command
 set -s escape-time 1
 # Ensure that we can send Ctrl-A to other apps
