@@ -1,4 +1,6 @@
 PATH=/usr/local/bin:$PATH
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
 
 # set colorful terminal
 export CLICOLOR=1
@@ -18,7 +20,7 @@ alias tmuxCreateMySession='tmux new -s mySession'
 alias tmuxAttachMySession='tmux attach -t mySession'
 
 # ssh @raspberry
-alias loginRaspberry='ssh pi@192.168.50.200'
+alias loginRaspberry='ssh pi@192.168.99.254'
 
 # mysql
 # $ mysql -u root -p  #loggin on root, password is root
