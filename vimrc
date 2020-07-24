@@ -45,8 +45,8 @@ Plugin 'bling/vim-airline'
 Plugin 'MatlabFilesEdition' 
 Plugin 'jcfaria/Vim-R-plugin'
 Plugin 'plasticboy/vim-markdown'
-Plugin 'tomasr/molokai'
 Plugin 'jpalardy/vim-slime'
+"Plugin 'tomasr/molokai'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -109,7 +109,7 @@ filetype plugin indent on    " required
 " ------------- Taglist --------------------
 " :Tlist                     -- Open taglist
 " ------------- Tagbar --------------------
-" :Tagbar                    -- 呼出变量和函数列表     [Tagbar插件]
+" :Tagbar                    -- 呼出变量和函数列表
 " ------------- NERD-Tree -----------------
 " :NERDTree                  -- 启动NERDTree插件
 " o [小写]                   -- 切换当前文件或目录的打开、关闭状态
@@ -163,8 +163,8 @@ filetype plugin indent on    " required
 " =========================================
 
 "colorscheme elflord          " 着色模式：黄色和粉红色为主
-colorscheme molokai          " Color Scheme use Molokai
-set guifont=Monaco:h11       " 字体 && 字号
+"colorscheme molokai          " Color Scheme use Molokai
+"set guifont=Monaco:h11       " 字体 && 字号
 set backspace=2              " 设置退格键可用
 set autoindent               " 自动对齐
 set ai!                      " 设置自动缩进
@@ -213,6 +213,7 @@ let g:winManagerWindowLayout="NERDTree|TagList,BufExplorer"
 nmap wm :if IsWinManagerVisible() <BAR> WMToggle<CR> <BAR> else <BAR> WMToggle<CR>:q<CR> endif <CR><CR>
 "Add NERDTree and TagList to Winmanager
 let g:NERDTree_title="[NERDTree]" 
+"let g:NERDTreeChDirMode = 2  # change mode if Ctrlp cwd error
 function! NERDTree_Start()
     exec 'NERDTree'
 endfunction
@@ -274,7 +275,8 @@ let vimrplugin_vimcom_wait = 10000
 " vim-slime, 从tmux:pane:1的vim，发送内容至，pane:2的ipython或其它,
 " send by <F8>, setup by <F9>>
 let g:slime_target = "tmux"
-let g:slime_default_config = {"socket_name": "default", "target_pane": "2"}
+let g:slime_default_config = {"socket_name": "default", "target_pane": "{right-of}"}
+let g:slime_python_ipython = 1
 let g:slime_dont_ask_default = 1
 xmap <F8> <Plug>SlimeRegionSend
 nmap <F8> <Plug>SlimeParagraphSend
@@ -288,9 +290,9 @@ let g:instant_markdown_slow = 1
 let g:instant_markdown_autostart = 0
 
 " Molokai Color Scheme
-let g:molokai_original = 1
-let g:rehash256 = 1
 " vim的背景和变得和终端一样，那么改monokai.vim配色，把Normal的配色改成 ctermbg=NONE
+"let g:molokai_original = 1
+"let g:rehash256 = 1
 
 " Automatically set/unset paste mode
 let &t_SI .= "\<Esc>[?2004h"
