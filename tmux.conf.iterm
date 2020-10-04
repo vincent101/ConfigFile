@@ -10,6 +10,3 @@ bind r source-file ~/.tmux.conf \; display "Reloaded!"
 # Set the default terminal mode to 256color mode
 set -g default-terminal "screen-256color"
 
-# Set status bar
-set status-bg default
-
