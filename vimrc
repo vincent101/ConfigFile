@@ -29,24 +29,21 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'L9'
 Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
 Plugin 'Syntastic'                                                                                           
-Plugin 'winmanager'                                                                                          
-Plugin 'taglist.vim'
-Plugin 'majutsushi/tagbar'                                                                                         
+Plugin 'pseewald/nerdtree-tagbar-combined'
+Plugin 'preservim/tagbar'                                                                                         
+Plugin 'preservim/nerdtree'                                                                                       
+Plugin 'kien/ctrlp.vim'
+Plugin 'preservim/nerdcommenter'
 Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'aperezdc/vim-template.git'
-Plugin 'The-NERD-tree'                                                                                       
-Plugin 'The-NERD-Commenter'
-Plugin 'kien/ctrlp.vim'
 Plugin 'godlygeek/tabular'
-Plugin 'Auto-Pairs'
-Plugin 'bling/vim-airline'
-Plugin 'MatlabFilesEdition' 
-Plugin 'jcfaria/Vim-R-plugin'
-Plugin 'plasticboy/vim-markdown'
+Plugin 'jiangmiao/auto-pairs'
 Plugin 'jpalardy/vim-slime'
-"Plugin 'tomasr/molokai'
+Plugin 'bling/vim-airline'
+Plugin 'plasticboy/vim-markdown'
+Plugin 'mattn/vim-sqlfmt'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -67,6 +64,8 @@ filetype plugin indent on    " required
 "              Bundle End
 " =========================================
 
+
+" =========================================
 " ------------- Basic Usage ---------------
 " ^ or 0                     -- 行首
 " $                          -- 行尾
@@ -76,55 +75,39 @@ filetype plugin indent on    " required
 " Ctrl + d                   -- 往前滚动半屏
 " Ctrl + b                   -- 往后滚动整屏
 " Ctrl + u                   -- 往后滚动半屏
-"
-" u [小写]                   -- 单步复原               [非插入模式]
-" U [大写]                   -- 整行复原               [非插入模式]
-"
+
+" u                          -- 单步复原               [非插入模式]
+" U                          -- 整行复原               [非插入模式]
+
 " zc                         -- 折叠当前行
 " zo                         -- 打开当前折叠
 " zi                         -- 打开或关闭当前折叠
 " zM                         -- 关闭所有折叠
 " zR                         -- 打开所有折叠
-"
+
 " :tabnew                    -- 新建Tab
-" gt                         -- 切换Tab
 " :tabc                      -- 关闭当前Tab
-"
-" Ctrl + C                   -- 单源文件编译           [已配置 c,cpp,go]
-" Ctrl + X                   -- 单源文件运行           [已配置 c,cpp,,Go,Bash,PHP,python]
-"
-" :%!xxd                     -- 转储二进制文件，以十六进制形式显示
-" :%!xxd -r                  -- 还原二进制文件
+" gt                         -- 切换Tab
 
-" =========================================
-
-" ------------- Main Plugin ---------------
-" :Tagbar                    -- 呼出变量和函数列表     [Tagbar插件]
-" :Tlist                     -- 呼出变量和函数列表     [TagList插件]
-" :NerdTree                  -- 呼出nerdtree文件管理器 [NerdTree插件]
-" :CtrlP or <c-p>            -- invoke CtrlP in find file mode
-" :Tabularize                -- Aligning text by ?
-" ------------ WinManager ------------------
-" :wm                        -- Open NERDTree and TagList on the left side
-" ------------- Taglist --------------------
-" :Tlist                     -- Open taglist
-" ------------- Tagbar --------------------
+" ------------- TagBar&NerdTree -----------
+" F2                         -- 同时打开TagBar&NerdTree在左侧
+" ------------- TagBar --------------------
 " :Tagbar                    -- 呼出变量和函数列表
 " ------------- NERD-Tree -----------------
 " :NERDTree                  -- 启动NERDTree插件
-" o [小写]                   -- 切换当前文件或目录的打开、关闭状态
+" <c-w-w>                    -- 在左右窗口切换
+" t                          -- 在tab打开文件
+" T                          -- 在后台tab打开文件
+" !                          -- 运行文件
+" o                          -- 切换当前文件或目录的打开、关闭状态
 " u                          -- 打开上层目录
-" p [小写]                   -- 返回上层目录
-" P [大写]                   -- 返回根目录
+" p                          -- 返回上层目录
+" P                          -- 返回根目录
 " K                          -- 转到当前目录第一个节点
 " J                          -- 转到当前目录最后的节点
 " m                          -- 显示文件系统菜单       [增、删、移]
 " ?                          -- 弹出帮助菜单
 " q                          -- 退出该插件
-" ------------- NERD-Comment --------------
-" ,cc                        -- Comment line
-" ,cu                        -- UnComment line
-" :NERDTree                  -- 启动NERDTree插件
 " ------------- CtrlP ---------------------
 " :CtrlP or <c-p>            -- invoke CtrlP in find file mode
 " :CtrlPBuffer or :CtrlPMRU  -- invoke CtrlP in find buffer or find MRU file mode.
@@ -140,15 +123,21 @@ filetype plugin indent on    " required
 " <c-n>, <c-p>               -- select the next/previous string in the prompt's history.
 " <c-y>                      -- create a new file and its parent directories.
 " <c-z>                      -- mark/unmark multiple files and <c-o> to open them.
-" ------------- Tabular -------------------
+" ------------- NERD-Comment --------------
+" ,cc                        -- Comment line
+" ,cu                        -- UnComment line
+" :NERDTree                  -- 启动NERDTree插件
+" ------------- UltiSnips -- --------------
+" <tab>                      -- 补全语法结构
+" <c-tab>                    -- 展示可补全语法结构list
+" <tab>                      -- forward
+" <s-tab>                      -- backward
+" ------------- Tabularize ----------------
 " :Tab /?                    -- Aligning text by ?
-" ------------- Vim-R-Plugin --------------
-"  \rf                       -- start R
-"  \rq                       -- quit R
-"  \l                        -- send one line to R
-"  \aa                       -- send file
-"  \ss                       -- send selection
-"  \ff                       -- send function
+" ------------- vim-slime -----------------
+" <F8>                       -- 发送 v选中代码/光标所在代码块 至右侧tmux-pane
+" <F9>                       -- 打开设置
+
 " ------------- Vim-Markdown --------------
 " gx                         -- open the link under the cursor in the same browser as the standard gx command.
 " ]]                         -- go to next header.
@@ -159,12 +148,11 @@ filetype plugin indent on    " required
 " ]u                         -- go to parent header (Up).
 " ------------- Instant-Markdown ----------
 " :InstantMarkdownPreview    -- launch the preview window
+" ------------- SQL-Formatter -------------
+" :SQLFmt                    -- format sql through py-sqlparse
 
 " =========================================
 
-"colorscheme elflord          " 着色模式：黄色和粉红色为主
-"colorscheme molokai          " Color Scheme use Molokai
-"set guifont=Monaco:h11       " 字体 && 字号
 set backspace=2              " 设置退格键可用
 set autoindent               " 自动对齐
 set ai!                      " 设置自动缩进
@@ -203,53 +191,20 @@ filetype plugin indent on    " 启用自动补全
 
 " =========================================
 
-" 每行超过80个的字符用下划线标示
-au BufRead,BufNewFile *.s,*.c,*.h,*.go,*.cl,*.php,*.tpl,*.js,*.css,*.html,*.sql,*.sh,*.vim 2match Underlined /.\%81v/
-
-" WinManager          
-let g:AutoOpenWinManager = 0
-let g:winManagerWidth = 30
-let g:winManagerWindowLayout="NERDTree|TagList,BufExplorer"
-nmap wm :if IsWinManagerVisible() <BAR> WMToggle<CR> <BAR> else <BAR> WMToggle<CR>:q<CR> endif <CR><CR>
-"Add NERDTree and TagList to Winmanager
-let g:NERDTree_title="[NERDTree]" 
-"let g:NERDTreeChDirMode = 2  # change mode if Ctrlp cwd error
-function! NERDTree_Start()
-    exec 'NERDTree'
-endfunction
-function! NERDTree_IsValid()
-    return 1
-endfunction
-"end
+" NerdTree&Tagbar
+nmap <F2> :ToggleNERDTreeAndTagbar<CR>
 
 " Tagbar
+let g:tagbar_left = 1
+let g:tagbar_vertical = 30
+let g:tagbar_compact = 1
+let g:tagbar_autoshowtag = 1
 let g:tagbar_ctags_bin = '/usr/local/bin/ctags'
 
-" TagList
-let Tlist_Ctags_Cmd = '/usr/local/bin/ctags'
-let Tlist_Show_One_File=1
-let Tlist_Exit_OnlyWindow=1
-let Tlist_File_Fold_Auto_Close=1
-let Tlist_Use_Right_Window=1
-           
-" UltiSnips
-let g:UltiSnipsExpandTrigger="<Tab>"
-let g:UltiSnipsJumpForwardTrigger="<Tab>"
-let g:UltiSnipsJumpBackwardTrigger="<s-Tab>"
-let g:UltiSnipsEditSplit="vertical"
-
-" YoucompleteMe      
-"let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/cpp/ycm/.ycm_extra_conf.py'
-let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
-let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
-let g:ycm_seed_identifiers_with_syntax=1
-
-" NerdCommenter
-let mapleader=","
-
-" vim-template
-let g:username = 'Vincent'
-let g:email = 'vincent.wangworks@gmail.com'
+" NerdTree
+let NERDTreeMinimalUI=1
+let NERDTreeChDirMode = 2
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 " CtrlP
 let g:ctrlp_map = '<c-p>'
@@ -264,13 +219,34 @@ let g:ctrlp_prompt_mappings = {
             \'AcceptSelection("h")': ['<c-x>', '<c-cr>', '<c-s>'],
             \'AcceptSelection("v")': ['<c-v>', '<RightMouse>'],}
 
+" NerdCommenter
+let mapleader=","
+
+" UltiSnips
+let g:UltiSnipsExpandTrigger="<Tab>"
+let g:UltiSnipsListSnippets = "<c-tab>"
+let g:UltiSnipsJumpForwardTrigger="<Tab>"
+let g:UltiSnipsJumpBackwardTrigger="<s-Tab>"
+let g:UltiSnipsEditSplit="vertical"
+
+" YoucompleteMe      
+let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
+let g:ycm_seed_identifiers_with_syntax=1
+"let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/cpp/ycm/.ycm_extra_conf.py'
+
+" vim-template
+let g:username = 'Vincent'
+let g:email = 'vincent.wangworks@gmail.com'
+
 " Airline
 let g:airline#extensions#tabline#enabled = 1
 
-" R-vim-plugin
-let vimrplugin_applescript = 0
-let vimrplugin_vimcom_wait = 10000
-"let vimrplugin_screenplugin = 0
+" Vim-Markdown
+let g:vim_markdown_frontmatter=1
+" Instant-Markdown
+let g:instant_markdown_slow = 1
+let g:instant_markdown_autostart = 0
 
 " vim-slime, 从tmux:pane:1的vim，发送内容至，pane:2的ipython或其它,
 " send by <F8>, setup by <F9>>
@@ -282,17 +258,8 @@ xmap <F8> <Plug>SlimeRegionSend
 nmap <F8> <Plug>SlimeParagraphSend
 nmap <F9> <Plug>SlimeConfig
 
-" Vim-Markdown
-let g:vim_markdown_frontmatter=1
-
-" Instant-Markdown
-let g:instant_markdown_slow = 1
-let g:instant_markdown_autostart = 0
-
-" Molokai Color Scheme
-" vim的背景和变得和终端一样，那么改monokai.vim配色，把Normal的配色改成 ctermbg=NONE
-"let g:molokai_original = 1
-"let g:rehash256 = 1
+" set Underline at 80 words
+au BufRead,BufNewFile *.s,*.c,*.h,*.go,*.cl,*.php,*.tpl,*.js,*.css,*.html,*.sql,*.sh,*.vim 2match Underlined /.\%81v/
 
 " Automatically set/unset paste mode
 let &t_SI .= "\<Esc>[?2004h"
@@ -304,45 +271,75 @@ function! XTermPasteBegin()
   return ""
 endfunction
 
+
+" =========================================
+" Backup Plugins
 " =========================================
 
+"Plugin 'tomasr/molokai'
+"Plugin 'MatlabFilesEdition' 
+"Plugin 'jcfaria/Vim-R-plugin'
+
+" ------------- Vim-R-Plugin --------------
+"  \rf                       -- start R
+"  \rq                       -- quit R
+"  \l                        -- send one line to R
+"  \aa                       -- send file
+"  \ss                       -- send selection
+"  \ff                       -- send function
+" ------------- auto-Compile&Run ----------
+" Ctrl + C                   -- 单源文件编译           [已配置 c,cpp,go]
+" Ctrl + X                   -- 单源文件运行           [已配置 c,cpp,,Go,Bash,PHP,python]
+" :%!xxd                     -- 转储二进制文件，以十六进制形式显示
+" :%!xxd -r                  -- 还原二进制文件
+
+" Molokai Color Scheme
+" vim的背景和变得和终端一样，那么改monokai.vim配色，把Normal的配色改成 ctermbg=NONE
+"let g:molokai_original = 1
+"let g:rehash256 = 1
+"colorscheme elflord          " 着色模式：黄色和粉红色为主
+"colorscheme molokai          " Color Scheme use Molokai
+"set guifont=Monaco:h11       " 字体 && 字号
+
+" R-vim-plugin
+"let vimrplugin_applescript = 0
+"let vimrplugin_vimcom_wait = 10000
+"let vimrplugin_screenplugin = 0
+
 " 编译源文件
-func! CompileCode()
-        exec "w"
-        if &filetype == "c"
-            exec "!gcc -Wall -std=c99 %<.c -o %<"
-        elseif &filetype == "cpp"
-            exec "!g++ %<.cpp -o %<"
-        elseif &filetype == "go"
-            exec "!gccgo -Wall %<.go -o %<"
-        elseif &filetype == "make"
-            exec "!colormake"
-        endif
-endfunc
-
+"func! CompileCode()
+        "exec "w"
+        "if &filetype == "c"
+            "exec "!gcc -Wall -std=c99 %<.c -o %<"
+        "elseif &filetype == "cpp"
+            "exec "!g++ %<.cpp -o %<"
+        "elseif &filetype == "go"
+            "exec "!gccgo -Wall %<.go -o %<"
+        "elseif &filetype == "make"
+            "exec "!colormake"
+        "endif
+"endfunc
 " 运行可执行文件
-func! RunCode()
-        exec "w"
-        if &filetype == "c" || &filetype == "go" || &filetype == "cpp"
-            exec "! ./%<"
-        elseif &filetype == "sh"
-            exec "!bash %<.sh"
-        elseif &filetype == "python"
-            exec "!python %<.py"
-        elseif &filetype == "php"
-            exec "!php %<.php"
-        elseif &filetype == "make"
-            exec "! ./app"
-        endif
-endfunc
-
-" Ctrl + C 一键保存、编译
-map <c-c> :call CompileCode()<CR>
-imap <c-c> <ESC>:call CompileCode()<CR>
-vmap <c-c> <ESC>:call CompileCode()<CR>
-
-" Ctrl + X 一键保存、运行
-map <c-x> :call RunCode()<CR>
-imap <c-x> <ESC>:call RunCode()<CR>
-vmap <c-x> <ESC>:call RunCode()<CR>
+"func! RunCode()
+        "exec "w"
+        "if &filetype == "c" || &filetype == "go" || &filetype == "cpp"
+            "exec "! ./%<"
+        "elseif &filetype == "sh"
+            "exec "!bash %<.sh"
+        "elseif &filetype == "python"
+            "exec "!python %<.py"
+        "elseif &filetype == "php"
+            "exec "!php %<.php"
+        "elseif &filetype == "make"
+            "exec "! ./app"
+        "endif
+"endfunc
+" Ctrl + C 保存&编译
+"map <c-c> :call CompileCode()<CR>
+"imap <c-c> <ESC>:call CompileCode()<CR>
+"vmap <c-c> <ESC>:call CompileCode()<CR>
+" Ctrl + X 保存&运行
+"map <c-x> :call RunCode()<CR>
+"imap <c-x> <ESC>:call RunCode()<CR>
+"vmap <c-x> <ESC>:call RunCode()<CR>
 
