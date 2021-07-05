@@ -43,7 +43,9 @@ Plugin 'jiangmiao/auto-pairs'
 Plugin 'jpalardy/vim-slime'
 Plugin 'bling/vim-airline'
 Plugin 'plasticboy/vim-markdown'
-Plugin 'mattn/vim-sqlfmt'
+Plugin 'iamcco/mathjax-support-for-mkdp'
+Plugin 'iamcco/markdown-preview.vim'
+"Plugin 'mattn/vim-sqlfmt'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -75,6 +77,16 @@ filetype plugin indent on    " required
 " Ctrl + d                   -- 往前滚动半屏
 " Ctrl + b                   -- 往后滚动整屏
 " Ctrl + u                   -- 往后滚动半屏
+" gd                         -- 跳转到局部变量的定义处
+" gD                         -- 跳转到全局变量的定义处，从当前文件开头开始搜索
+" %                          -- 移动到匹配的(),{}或[]上
+
+" ``                         -- 跳转当前文件中上次跳转动作之前的位置
+" `.                         -- 跳转上次修改的地方
+" `^                         -- 跳转上次插入的地方
+" m[a-z]                     -- 设置标记[a-z]
+" `[a-z]                     -- 跳转标记[a-z]
+" :marks                     -- 获取所以标记列表
 
 " u                          -- 单步复原               [非插入模式]
 " U                          -- 整行复原               [非插入模式]
@@ -86,16 +98,17 @@ filetype plugin indent on    " required
 " zR                         -- 打开所有折叠
 
 " :tabnew                    -- 新建Tab
+" :tabedit $path             -- 新建Tab编辑文档$path
 " :tabc                      -- 关闭当前Tab
 " gt                         -- 切换Tab
 
 " ------------- TagBar&NerdTree -----------
 " F2                         -- 同时打开TagBar&NerdTree在左侧
+" <c-w-w>                    -- 在左右窗口切换
 " ------------- TagBar --------------------
 " :Tagbar                    -- 呼出变量和函数列表
 " ------------- NERD-Tree -----------------
 " :NERDTree                  -- 启动NERDTree插件
-" <c-w-w>                    -- 在左右窗口切换
 " t                          -- 在tab打开文件
 " T                          -- 在后台tab打开文件
 " !                          -- 运行文件
@@ -131,7 +144,7 @@ filetype plugin indent on    " required
 " <tab>                      -- 补全语法结构
 " <c-tab>                    -- 展示可补全语法结构list
 " <tab>                      -- forward
-" <s-tab>                      -- backward
+" <s-tab>                    -- backward
 " ------------- Tabularize ----------------
 " :Tab /?                    -- Aligning text by ?
 " ------------- vim-slime -----------------
@@ -146,10 +159,11 @@ filetype plugin indent on    " required
 " []                         -- go to previous sibling header if any.
 " ]c                         -- go to Current header.
 " ]u                         -- go to parent header (Up).
-" ------------- Instant-Markdown ----------
-" :InstantMarkdownPreview    -- launch the preview window
+" ------------- MarkdownPreview  ----------
+" :MarkdownPreview           -- launch the preview window
+" :MarkdownPreviewStop       -- stop the preview window
 " ------------- SQL-Formatter -------------
-" :SQLFmt                    -- format sql through py-sqlparse
+" :sqlformat                    -- format sql through py-sqlparse
 
 " =========================================
 
@@ -244,9 +258,7 @@ let g:airline#extensions#tabline#enabled = 1
 
 " Vim-Markdown
 let g:vim_markdown_frontmatter=1
-" Instant-Markdown
-let g:instant_markdown_slow = 1
-let g:instant_markdown_autostart = 0
+" MarkdownPreview
 
 " vim-slime, 从tmux:pane:1的vim，发送内容至，pane:2的ipython或其它,
 " send by <F8>, setup by <F9>>
@@ -257,6 +269,8 @@ let g:slime_dont_ask_default = 1
 xmap <F8> <Plug>SlimeRegionSend
 nmap <F8> <Plug>SlimeParagraphSend
 nmap <F9> <Plug>SlimeConfig
+
+
 
 " set Underline at 80 words
 au BufRead,BufNewFile *.s,*.c,*.h,*.go,*.cl,*.php,*.tpl,*.js,*.css,*.html,*.sql,*.sh,*.vim 2match Underlined /.\%81v/
